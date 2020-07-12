@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package benchmark;
+
+service Benchmark {
+  rpc RequestBenchmark (BenchmarkRequest) returns (BenchmarkResponse) {}
+}
+
+message BenchmarkRequest {
+  int32 rows = 1;
+}
+
+message BenchmarkResponse {
+  repeated Struct n_one_to_thousand_rows = 1;
+}
