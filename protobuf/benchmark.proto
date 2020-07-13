@@ -7,9 +7,9 @@ service Benchmark {
 }
 
 message BenchmarkRequest {
-  int32 rows = 1;
+  int32 n = 1;
 }
 
 message BenchmarkResponse {
-  repeated Struct n_one_to_thousand_rows = 1;
+  repeated int32 one_to_n = 1;
 }

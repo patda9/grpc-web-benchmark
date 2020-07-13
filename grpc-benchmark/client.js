@@ -1,16 +1,11 @@
-const { BenchmarkRequest } = require(__dirname + '.protobuf/benchmark_pb.js');
-const { BenchmarkClient } = require(__dirname + '.protobuf/benchmark_grpc_web_pb.js');
+const {BenchmarkRequest, BenchmarkResponse} = require('./.protobuf/benchmark_pb.js');
+const {BenchmarkClient} = require('./.protobuf/benchmark_grpc_web_pb.js');
 
-let client = new BenchmarkClient('http://' + window.location.hostname + ':8080', null, null);
+var client = new BenchmarkClient("http://localhost:8080");
 
-let request = new BenchmarkRequest();
-request.setRows(1000);
+var request = new BenchmarkRequest();
+request.setN(1000000);
 
-client.requestBenchmark(request, {}, (err, response) => {
-  if (err) {
-    console.log(`Unexpected error for requestBenchmark: code = ${err.code}, message = "${err.message}"`);
-  }
-  else {
-    console.log(response.getMessage());
-  }
+client.requestBenchmark(request, {}, (_, response) => {
+  console.log(response.getOneToNList());
 });

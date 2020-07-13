@@ -1,16 +1,21 @@
 {
-    "name": "grpc-benchmark",
-    "version": "0.1.0",
-    "description": "gRPC-Web simple example",
-    "main": "server.js",
-    "devDependencies": {
-        "@grpc/grpc-js": "~1.0.5",
-        "@grpc/proto-loader": "~0.5.4",
-        "async": "~1.5.2",
-        "google-protobuf": "~3.12.0",
-        "grpc-web": "~1.2.0",
-        "lodash": "~4.17.0",
-        "webpack": "~4.43.0",
-        "webpack-cli": "~3.3.11"
-    }
+  "name": "grpc-web-simple-example",
+  "version": "0.1.0",
+  "description": "gRPC-Web simple example",
+  "main": "server.js",
+  "devDependencies": {
+    "@grpc/grpc-js": "~1.0.5",
+    "@grpc/proto-loader": "~0.5.4",
+    "async": "~1.5.2",
+    "google-protobuf": "~3.12.0",
+    "grpc-web": "~1.2.0",
+    "lodash": "~4.17.0",
+    "webpack": "~4.43.0",
+    "webpack-cli": "~3.3.11"
+  },
+  "scripts": {
+    "start-envoy": "docker run -d --name grpc_benchmark -v $PWD/envoy.yaml:/etc/envoy/grpc-benchmark-envoy.yaml:ro --network=host envoyproxy/envoy:v1.15.0",
+    "remove-envoy": "docker rm -f grpc_benchmark",
+    "protoc": "mkdir -p .protobuf && protoc -I=../protobuf benchmark.proto helloworld.proto --js_out=import_style=commonjs:.protobuf --grpc-web_out=import_style=commonjs,mode=grpcwebtext:.protobuf"
+  }
 }
