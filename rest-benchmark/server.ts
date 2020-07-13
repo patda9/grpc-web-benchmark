@@ -1,9 +1,14 @@
 import express = require("express");
 
 const app: express.Application = express();
+const cors = require("cors");
 
-const nOneToThousandRows = (n: number): number[] => {
-  return [...Array(n)].map((_, i) => i + 1)
+app.set("view engine", "pug");
+app.set("views", ".");
+app.use(cors());
+
+const oneToN = (n: number): number[] => {
+  return [...Array(n)].map((_, i) => i + 1);
 };
 
 app.get("/", (_, res) => {
@@ -13,10 +18,12 @@ app.get("/", (_, res) => {
 app.get(["/one-to-n", "/one-to-n/:n"], (req, res) => {
   const rows = parseInt(req.params.rows);
 
-  const n = rows ? (rows > 1000000 ? 1000000 : rows) : 1000000;
-  const response = nOneToThousandRows(n);
+  const n = rows ? (rows > 10000000 ? 10000000 : rows) : 10000000;
+  const response = oneToN(n);
 
-  res.json(response);
+  console.time("sendBenchmarkResponse");
+  res.send({ one_to_n: response });
+  console.timeEnd("sendBenchmarkResponse");
 });
 
 app.listen(3030, () => {
