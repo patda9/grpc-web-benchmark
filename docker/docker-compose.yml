@@ -1,0 +1,28 @@
+version: "3.1"
+services:
+  grpc_web:
+    image: nginx:1.13.0-alpine
+    container_name: grpc_web
+    expose:
+      - 80
+    volumes:
+      - ./web/grpc-web:/var/www/html/web
+      - ./nginx/nginx-grpc-web.conf:/etc/nginx/nginx.conf
+    environment:
+      VIRTUAL_HOST: "grpc-web.benchmark"
+
+  rest:
+    image: nginx:1.13.0-alpine
+    container_name: rest
+    expose:
+      - 80
+    volumes:
+      - ./web/rest:/var/www/html/web
+      - ./nginx/nginx-rest.conf:/etc/nginx/nginx.conf
+    environment:
+      VIRTUAL_HOST: "rest.benchmark"
+
+networks:
+  default:
+    external:
+      name: grpc_web_benchmark_network
