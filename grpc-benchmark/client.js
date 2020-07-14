@@ -9,6 +9,4 @@ var client = new BenchmarkClient("http://localhost:8080");
 var request = new BenchmarkRequest();
 request.setN(10000000);
 
-console.time("sendBenchmarkResponse");
-client.requestBenchmark(request, {}, (_, response) => { console.log("done") });
-console.timeEnd("sendBenchmarkResponse");
+client.requestBenchmark(request, {}, (_, response) => { });

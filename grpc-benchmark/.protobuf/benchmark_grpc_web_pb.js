@@ -150,5 +150,80 @@ proto.benchmark.BenchmarkPromiseClient.prototype.requestBenchmark =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.benchmark.BenchmarkRequest,
+ *   !proto.benchmark.BenchmarkResponseStream>}
+ */
+const methodDescriptor_Benchmark_RequestBenchmarkStream = new grpc.web.MethodDescriptor(
+  '/benchmark.Benchmark/RequestBenchmarkStream',
+  grpc.web.MethodType.SERVER_STREAMING,
+  proto.benchmark.BenchmarkRequest,
+  proto.benchmark.BenchmarkResponseStream,
+  /**
+   * @param {!proto.benchmark.BenchmarkRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.benchmark.BenchmarkResponseStream.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.benchmark.BenchmarkRequest,
+ *   !proto.benchmark.BenchmarkResponseStream>}
+ */
+const methodInfo_Benchmark_RequestBenchmarkStream = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.benchmark.BenchmarkResponseStream,
+  /**
+   * @param {!proto.benchmark.BenchmarkRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.benchmark.BenchmarkResponseStream.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.benchmark.BenchmarkRequest} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.benchmark.BenchmarkResponseStream>}
+ *     The XHR Node Readable Stream
+ */
+proto.benchmark.BenchmarkClient.prototype.requestBenchmarkStream =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/benchmark.Benchmark/RequestBenchmarkStream',
+      request,
+      metadata || {},
+      methodDescriptor_Benchmark_RequestBenchmarkStream);
+};
+
+
+/**
+ * @param {!proto.benchmark.BenchmarkRequest} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.benchmark.BenchmarkResponseStream>}
+ *     The XHR Node Readable Stream
+ */
+proto.benchmark.BenchmarkPromiseClient.prototype.requestBenchmarkStream =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/benchmark.Benchmark/RequestBenchmarkStream',
+      request,
+      metadata || {},
+      methodDescriptor_Benchmark_RequestBenchmarkStream);
+};
+
+
 module.exports = proto.benchmark;
 

@@ -14,8 +14,8 @@
     "webpack-cli": "~3.3.11"
   },
   "scripts": {
-    "start-envoy": "docker run -d --name grpc_benchmark -v $PWD/envoy.yaml:/etc/envoy/grpc-benchmark-envoy.yaml:ro --network=host envoyproxy/envoy:v1.15.0",
+    "protoc": "mkdir -p .protobuf && protoc -I=../protobuf benchmark.proto helloworld.proto --js_out=import_style=commonjs:.protobuf --grpc-web_out=import_style=commonjs,mode=grpcwebtext:.protobuf",
     "remove-envoy": "docker rm -f grpc_benchmark",
-    "protoc": "mkdir -p .protobuf && protoc -I=../protobuf benchmark.proto helloworld.proto --js_out=import_style=commonjs:.protobuf --grpc-web_out=import_style=commonjs,mode=grpcwebtext:.protobuf"
+    "start-envoy": "docker run -d --name grpc_benchmark -v $PWD/envoy.yaml:/etc/envoy/envoy.yaml:ro --network=host envoyproxy/envoy:v1.15.0"
   }
 }

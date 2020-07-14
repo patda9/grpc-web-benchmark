@@ -4,6 +4,8 @@ package benchmark;
 
 service Benchmark {
   rpc RequestBenchmark (BenchmarkRequest) returns (BenchmarkResponse) {}
+
+  rpc RequestBenchmarkStream (BenchmarkRequest) returns (stream BenchmarkResponseStream) {}
 }
 
 message BenchmarkRequest {
@@ -12,4 +14,8 @@ message BenchmarkRequest {
 
 message BenchmarkResponse {
   repeated int32 one_to_n = 1;
+}
+
+message BenchmarkResponseStream {
+  int32 n = 1;
 }
